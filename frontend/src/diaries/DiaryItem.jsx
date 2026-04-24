@@ -1,0 +1,94 @@
+import {
+  Alert,
+  Avatar,
+  Card,
+  CardContent,
+  CardHeader,
+  IconButton,
+  Snackbar,
+  Typography,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import EditLocationAltIcon from "@mui/icons-material/EditLocationAlt";
+
+import React, { useState } from "react";
+
+const DiaryItem = ({
+  title,
+  description,
+  image,
+  location,
+  date,
+  id,
+  user,
+  name,
+}) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Card
+      sx={{
+        width: "50%",
+        height: "auto",
+        margin: 1,
+        padding: 1,
+        display: "flex",
+        flexDirection: "column",
+        boxShadow: "5px 5px 10px #ccc",
+      }}
+    >
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
+            {name.charAt(0)}
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            {<EditLocationAltIcon />}
+          </IconButton>
+        }
+        title={location}
+        header={location}
+        subheader={date}
+      />
+
+      <img height="194" src={image} alt={title} />
+      <CardContent>
+        <Typography paddingBottom={1} variant="h6" color="text.secondary">
+          {title}
+        </Typography>
+        <hr />
+        <Box paddingTop={1} display="flex">
+          <Typography
+            width="auto"
+            sx={{ mr: 1 }}
+            fontWeight={"bold"}
+            variant="caption"
+          >
+            {name}:
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {description}
+          </Typography>
+        </Box>
+      </CardContent>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          This is a success message!
+        </Alert>
+      </Snackbar>
+    </Card>
+  );
+};
+
+export default DiaryItem;
