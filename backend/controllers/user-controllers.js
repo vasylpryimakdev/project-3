@@ -1,5 +1,7 @@
-import { compareSync, hashSync } from "bcryptjs";
-import User from "../models/User";
+import bcryptjs from "bcryptjs";
+
+const { compareSync, hashSync } = bcryptjs;
+import User from "../models/User.js";
 
 export const getAllUsers = async (req, res) => {
   let users;
