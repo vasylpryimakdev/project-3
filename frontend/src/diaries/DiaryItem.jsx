@@ -2,6 +2,7 @@ import {
   Alert,
   Avatar,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   IconButton,
@@ -10,9 +11,11 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import EditLocationAltIcon from "@mui/icons-material/EditLocationAlt";
-
+import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import React, { useState } from "react";
 
+import { Link } from "react-router-dom";
 const DiaryItem = ({
   title,
   description,
@@ -24,7 +27,16 @@ const DiaryItem = ({
   name,
 }) => {
   const [open, setOpen] = useState(false);
+  const isLoogedInUser = () => {
+    if (localStorage.getItem("userId") === user) {
+      return true;
+    }
+    return false;
+  };
 
+  const handleDelete = () => {
+    setOpen(true);
+  };
   return (
     <Card
       sx={{
@@ -73,6 +85,17 @@ const DiaryItem = ({
           </Typography>
         </Box>
       </CardContent>
+
+      {isLoogedInUser() && (
+        <CardActions sx={{ marginLeft: "auto" }}>
+          <IconButton LinkComponent={Link} to={`/post/${id}`} color="warning">
+            <ModeEditOutlineIcon />
+          </IconButton>
+          <IconButton onClick={handleDelete} color="error">
+            <DeleteForeverIcon />
+          </IconButton>
+        </CardActions>
+      )}
 
       <Snackbar
         open={open}
