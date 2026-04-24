@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist && babel src --out-dir dist  --copy-files",
+    "build": "rimraf dist && babel . --out-dir dist --copy-files --ignore node_modules,dist",
     "start": "nodemon app.js",
     "dev": "nodemon --exec babel-node app.js"
   },
