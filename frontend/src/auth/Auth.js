@@ -1,19 +1,47 @@
 import React, { useState } from "react";
 import { Box, Button, FormLabel, TextField, Typography } from "@mui/material";
-
+import { sendAuthRequest } from "../api-helpers/helpers";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store";
+import { useNavigate } from "react-router-dom";
 const Auth = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(inputs);
+  const [isSignup, setIsSignup] = useState(true);
+  const [inputs, setInputs] = useState({ name: "", email: "", password: "" });
+
+  const naviagte = useNavigate();
+  const dispatch = useDispatch();
+
+  const onResReceived = (data) => {
+    if (isSignup) {
+      localStorage.setItem("userId", data.user._id);
+    } else {
+      localStorage.setItem("userId", data.id);
+    }
+    dispatch(authActions.login());
+    naviagte("/diaries");
   };
 
-  const [inputs, setInputs] = useState({ name: "", email: "", password: "" });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignup) {
+      sendAuthRequest(true, inputs)
+        .then(onResReceived)
+        .catch((err) => console.log(err));
+    } else {
+      sendAuthRequest(false, inputs)
+        .then(onResReceived)
+        .catch((err) => console.log(err));
+    }
+  };
+
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
+
   return (
     <Box
       width="40%"
@@ -31,18 +59,20 @@ const Auth = () => {
           margin="auto"
         >
           <Typography padding={1} variant="h4" textAlign="center">
-            Signup
+            {isSignup ? "Signup" : "Login"}
           </Typography>
-
-          <FormLabel>Name</FormLabel>
-          <TextField
-            onChange={handleChange}
-            value={inputs.name}
-            name="name"
-            required
-            margin="normal"
-          />
-
+          {isSignup && (
+            <>
+              <FormLabel>Name</FormLabel>
+              <TextField
+                onChange={handleChange}
+                value={inputs.name}
+                name="name"
+                required
+                margin="normal"
+              />
+            </>
+          )}
           <FormLabel>Email</FormLabel>
           <TextField
             onChange={handleChange}
@@ -66,10 +96,14 @@ const Auth = () => {
             type="submit"
             variant="contained"
           >
-            Signup
+            {isSignup ? "Signup" : "Login"}
           </Button>
-          <Button sx={{ mt: 2, borderRadius: 10 }} variant="outlined">
-            Change to Signup
+          <Button
+            onClick={() => setIsSignup(!isSignup)}
+            sx={{ mt: 2, borderRadius: 10 }}
+            variant="outlined"
+          >
+            Change to {isSignup ? "Login" : "Signup"}
           </Button>
         </Box>
       </form>

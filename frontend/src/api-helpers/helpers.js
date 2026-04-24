@@ -24,5 +24,6 @@ export const sendAuthRequest = async (signup, data) => {
     return console.log("Unable to Authenticate");
   }
   const resData = await res.data;
+  
   return resData;
 };
