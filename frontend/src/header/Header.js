@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AppBar, Tab, Tabs, Toolbar } from "@mui/material";
 import ModeOfTravelIcon from "@mui/icons-material/ModeOfTravel";
+import { Link } from "react-router-dom";
 const linksArr = ["home", "diaries", "auth"];
 const Header = () => {
   const [value, setValue] = useState();
@@ -16,6 +17,7 @@ const Header = () => {
         >
           {linksArr.map((link) => (
             <Tab
+              LinkComponent={Link}
               to={`/${link === "home" ? "" : link}`}
               sx={{
                 textDecoration: "none",
