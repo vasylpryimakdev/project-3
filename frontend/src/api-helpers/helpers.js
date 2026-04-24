@@ -1,8 +1,7 @@
 import axios from "axios";
-const VITE_BASE_URL = process.env.VITE_BASE_URL || "http://localhost:5000";
 
 export const getAllPosts = async () => {
-  const res = await axios.get(`${VITE_BASE_URL}/posts`);
+  const res = await axios.get("/posts");
 
   if (res.status !== 200) {
     console.log("Some Error Occurred");
@@ -12,6 +11,18 @@ export const getAllPosts = async () => {
   return res.data;
 };
 
+export const sendAuthRequest = async (signup, data) => {
+  const res = await axios
+    .post(`/user/${signup ? "signup" : "login"}/`, {
+      name: data.name ? data.name : "",
+      email: data.email,
+      password: data.password,
+    })
+    .catch((err) => console.log(err));
 
-
-
+  if (res.status !== 200 && res.status !== 201) {
+    return console.log("Unable to Authenticate");
+  }
+  const resData = await res.data;
+  return resData;
+};

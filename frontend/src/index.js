@@ -3,6 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import axios from "axios";
+
+const VITE_BASE_URL = process.env.VITE_BASE_URL || "http://localhost:5000";
+
+axios.defaults.baseURL = VITE_BASE_URL;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
