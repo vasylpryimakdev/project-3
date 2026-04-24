@@ -2,7 +2,7 @@ import { Button, FormLabel, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPostDetails } from "../api-helpers/helpers";
+import { getPostDetails, postUpdate } from "../api-helpers/helpers";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 
 const DiaryUpdate = () => {
@@ -39,6 +39,9 @@ const DiaryUpdate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
+    postUpdate(inputs, id)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   };
   return (
     <Box display="flex" flexDirection={"column"} width="100%" height="100%">
