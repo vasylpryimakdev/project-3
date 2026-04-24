@@ -1,6 +1,7 @@
 import { Box, Button, FormLabel, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import { addPost } from "../api-helpers/helpers";
 import { useNavigate } from "react-router-dom";
 const Add = () => {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ const Add = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
+    addPost(inputs)
+      .then(onResReceived)
+      .catch((err) => console.log(err));
   };
   return (
     <Box display="flex" flexDirection={"column"} width="100%" height="100%">
