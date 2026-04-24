@@ -1,6 +1,6 @@
 import mongoose, { mongo, startSession } from "mongoose";
-import Post from "../models/Post";
-import User from "../models/User";
+import Post from "../models/Post.js";
+import User from "../models/User.js";
 
 export const getAllPosts = async (req, res) => {
   let posts;
@@ -16,6 +16,7 @@ export const getAllPosts = async (req, res) => {
 
   return res.status(200).json({ posts });
 };
+
 export const addPost = async (req, res) => {
   const { title, description, location, date, image, user } = req.body;
 
@@ -47,13 +48,19 @@ export const addPost = async (req, res) => {
 
   let post;
 
+  const parsedDate = date ? new Date(date) : null;
+
+  if (!parsedDate || isNaN(parsedDate.getTime())) {
+    return res.status(400).json({ message: "Invalid date" });
+  }
+
   try {
     post = new Post({
       title,
       description,
       image,
       location,
-      date: new Date(`${date}`),
+      date: parsedDate,
       user,
     });
 

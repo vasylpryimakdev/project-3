@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routing/user-routes.js";
+import postRouter from "./routing/post-routes.js";
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/user", userRouter);
+app.use("/posts", postRouter);
 
 const start = async () => {
   try {
