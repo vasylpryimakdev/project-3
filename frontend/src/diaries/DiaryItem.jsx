@@ -16,6 +16,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
+import { postDelete } from "../api-helpers/helpers";
 const DiaryItem = ({
   title,
   description,
@@ -35,6 +36,9 @@ const DiaryItem = ({
   };
 
   const handleDelete = () => {
+    postDelete(id)
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
     setOpen(true);
   };
   return (
