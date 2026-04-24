@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, FormLabel, TextField, Typography } from "@mui/material";
 
 const Auth = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(inputs);
+  };
+
+  const [inputs, setInputs] = useState({ name: "", email: "", password: "" });
+  const handleChange = (e) => {
+    setInputs((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
   return (
     <Box
       width="40%"
@@ -10,7 +22,7 @@ const Auth = () => {
       margin="auto"
       marginTop={10}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <Box
           display="flex"
           flexDirection={"column"}
@@ -23,12 +35,32 @@ const Auth = () => {
           </Typography>
 
           <FormLabel>Name</FormLabel>
-          <TextField name="name" required margin="normal" />
+          <TextField
+            onChange={handleChange}
+            value={inputs.name}
+            name="name"
+            required
+            margin="normal"
+          />
 
           <FormLabel>Email</FormLabel>
-          <TextField name="email" type="email" required margin="normal" />
+          <TextField
+            onChange={handleChange}
+            value={inputs.email}
+            name="email"
+            type="email"
+            required
+            margin="normal"
+          />
           <FormLabel>Password</FormLabel>
-          <TextField name="password" type="password" required margin="normal" />
+          <TextField
+            onChange={handleChange}
+            value={inputs.password}
+            name="password"
+            type="password"
+            required
+            margin="normal"
+          />
           <Button
             sx={{ mt: 2, borderRadius: 10 }}
             type="submit"
