@@ -4,7 +4,7 @@ import ModeOfTravelIcon from "@mui/icons-material/ModeOfTravel";
 import { Link } from "react-router-dom";
 const linksArr = ["home", "diaries", "auth"];
 const Header = () => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   return (
     <AppBar sx={{ bgcolor: "transparent", position: "sticky" }}>
       <Toolbar>
