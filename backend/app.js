@@ -5,13 +5,18 @@ import userRouter from "./routing/user-routes.js";
 import postRouter from "./routing/post-routes.js";
 import cors from "cors";
 
-
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+  }),
+);
 
 app.use("/user", userRouter);
 app.use("/posts", postRouter);

@@ -81,7 +81,7 @@ npm install
 cp .env.example .env
 
 # Edit .env file if needed (default should work)
-API_URL=http://localhost:5000
+REACT_APP_API_URL=http://localhost:5000
 
 # Start the development server
 npm start
@@ -171,7 +171,7 @@ MONGO_URI=your_mongodb_connection_string
 
 ### Frontend (.env)
 ```
-API_URL=http://localhost:5000
+REACT_APP_API_URL=http://localhost:5000
 ```
 
 ## 🚀 Deployment
