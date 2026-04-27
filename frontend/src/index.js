@@ -7,9 +7,9 @@ import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import { store } from "./store";
 
-const VITE_BASE_URL = process.env.VITE_BASE_URL || "http://localhost:5000";
+const BASE_URL = process.env.API_URL;
 
-axios.defaults.baseURL = VITE_BASE_URL;
+axios.defaults.baseURL = BASE_URL;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
